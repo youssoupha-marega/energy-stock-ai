@@ -1,0 +1,28 @@
+# Kedro Catalog
+# Définit les sources et cibles de données pour les pipelines.
+
+data_raw:
+  type: pandas.ParquetDataSet
+  filepath: data/01_raw/stock_prices.parquet
+  save_args:
+    engine: pyarrow
+  load_args:
+    engine: pyarrow
+
+features:
+  type: pandas.ParquetDataSet
+  filepath: data/02_intermediate/features.parquet
+  save_args:
+    engine: pyarrow
+
+model_input:
+  type: pandas.ParquetDataSet
+  filepath: data/03_primary/model_input.parquet
+  save_args:
+    engine: pyarrow
+
+training_results:
+  type: pandas.ParquetDataSet
+  filepath: data/04_models/training_results.parquet
+  save_args:
+    engine: pyarrow
