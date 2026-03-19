@@ -1,0 +1,260 @@
+docs kedro : https://docs.kedro.org/en/stable/tutorials/create_a_pipeline/#data-preprocessing-node-functions
+youtube kedro : https://www.youtube.com/watch?v=3YeE_gvDCvw&list=PL-JJgymPjK5LddZXbIzp9LWurkLGgB-nY&index=11
+
+
+# s'assurer d'etre dans le bon dossier
+cd spaceflights
+
+
+
+######=====================================================#
+#######
+######  Partie 1 --- creation pipeline
+######
+######
+
+## executer la commande 
+kedro pipeline create data_processing
+
+
+### executer la commande
+
+### output ####
+
+####
+####
+C:.
+|   .gitignore
+|   pyproject.toml
+|   README.md
+|   requirements.txt
+|
++---conf
+|   |   README.md
+|   |
+|   +---base
+|   |       catalog.yml
+|   |       parameters.yml
+|   |       parameters_data_processing.yml
+|   |
+|   \---local
+|           .gitkeep
+|           credentials.yml
+|
++---data
+|   +---01_raw
+|   |       .gitkeep
+|   |       companies.csv
+|   |       reviews.csv
+|   |       shuttles.xlsx
+|   |
+|   +---02_intermediate
+|   |       .gitkeep
+|   |
+|   +---03_primary
+|   |       .gitkeep
+|   |
+|   +---04_feature
+|   |       .gitkeep
+|   |
+|   +---05_model_input
+|   |       .gitkeep
+|   |
+|   +---06_models
+|   |       .gitkeep
+|   |
+|   +---07_model_output
+|   |       .gitkeep
+|   |
+|   \---08_reporting
+|           .gitkeep
+|
++---notebooks
+|       .gitkeep
+|       data-exploration.ipynb
+|       first-exploration.ipynb
+|       test.ipynb
+|
++---src
+|   \---spaceflights
+|       |   pipeline_registry.py
+|       |   settings.py
+|       |   __init__.py
+|       |   __main__.py
+|       |
+|       +---pipelines
+|       |   |   __init__.py
+|       |   |
+|       |   +---data_processing #(new data directory)
+|       |   |       nodes.py #contient les fonctions de transformation - ce que je fais aux données
+|       |   |       pipeline.py #assemble ces fonctions en nodes et construit le pipeline - dans quel ordre j’exécute ces traitements
+|       |   |       __init__.py
+|       |   |
+|
+\---tests
+    \---pipelines
+        \---data_processing
+                test_pipeline.py
+                __init__.py
+
+
+
+###
+##
+
+
+### Etape code formateur (exemple black)
+black src\spaceflights  
+
+##
+output
+##
+All done! ✨ 🍰 ✨
+4 files reformatted, 4 files left unchanged.
+
+
+
+
+
+######=====================================================#
+#######
+######  Partie2
+######
+######
+#########
+###  Assemble your nodes into a Kedro pipeline
+####
+
+youtube : kedro https://www.youtube.com/watch?v=P__gFG1TmMo&list=PL-JJgymPjK5LddZXbIzp9LWurkLGgB-nY&index=12
+
+spaceflights\src\spaceflights\pipelines\data_processing\pipeline.py
+
+from kedro.pipeline import Node, Pipeline, node (ajouter node)  # noqa
+
+from .nodes import preprocess_companies, preprocess_shuttles (ajouter les deux)  # noqa
+
+a node is a mapping between a python function and some inputs and output
+
+def create_pipeline(**kwargs) -> Pipeline:
+    return Pipeline(
+        [
+            Node(
+                func=preprocess_companies,
+                inputs="companies",
+                outputs="preprocessed_companies",
+                name="preprocess_companies_node",
+            ),
+            Node(
+                func=preprocess_shuttles,
+                inputs="shuttles",
+                outputs="preprocessed_shuttles",
+                name="preprocess_shuttles_node",
+            ),
+            ...,
+        ]
+    )
+
+
+
+### Verifier le registre des pipeline 
+kedro registry list
+
+
+### en sortie 
+[03/19/26 03:22:36] INFO     Using 'C:\Users\ymarega\OneDrive -                                __init__.py:269
+                             NORDIKeau\Bureau\Personnel\Data & IA\Projets                                     
+                             perso\energystock-ai\energy-stock-ai-3.12.venv\Lib\site-packages\                
+                             kedro\framework\project\rich_logging.yml' as logging                             
+                             configuration.                                                                   
+- __default__
+- data_processing
+
+[03/19/26 03:22:37] INFO     Kedro is sending anonymous usage data with the sole purpose of      plugin.py:242
+                             improving the product. No personal data or IP addresses are stored               
+                             on our side. To opt out, set the `KEDRO_DISABLE_TELEMETRY` or                    
+                             `DO_NOT_TRACK` environment variables, or create a `.telemetry` file              
+                             in the current working directory with the contents `consent:                     
+                             false`. To hide this message, explicitly grant or deny consent.                  
+                             Read more at https://docs.kedro.org/en/stable/about/telemetry/                   
+ 
+
+
+### executer pipeline
+kedro run --pipeline data_processing
+
+### en sortie
+energystock-ai\spaceflights> kedro run --pipeline data_processing
+[03/19/26 03:29:54] INFO     Using 'C:\Users\ymarega\OneDrive -                                __init__.py:269
+                             NORDIKeau\Bureau\Personnel\Data & IA\Projets                                     
+                             perso\energystock-ai\energy-stock-ai-3.12.venv\Lib\site-packages\                
+                             kedro\framework\project\rich_logging.yml' as logging                             
+                             configuration.                                                                   
+[03/19/26 03:29:55] INFO     Kedro project spaceflights                                         session.py:335
+                    WARNING  `pipeline_name` is deprecated and will be removed in a future      session.py:337
+                             release. Please use `pipeline_names` instead.                                    
+                    INFO     Kedro is sending anonymous usage data with the sole purpose of      plugin.py:242
+                             improving the product. No personal data or IP addresses are stored               
+                             on our side. To opt out, set the `KEDRO_DISABLE_TELEMETRY` or                    
+                             `DO_NOT_TRACK` environment variables, or create a `.telemetry` file              
+                             in the current working directory with the contents `consent:                     
+                             false`. To hide this message, explicitly grant or deny consent.                  
+                             Read more at https://docs.kedro.org/en/stable/about/telemetry/                   
+[03/19/26 03:29:56] INFO     Using synchronous mode for loading and saving data. Use   sequential_runner.py:59
+                             the --async flag for potential performance gains.                                
+                             https://docs.kedro.org/en/stable/build/run_a_pipeline/#lo                        
+                             ad-and-save-asynchronously                                                       
+                    INFO     Loading data from companies (CSVDataset)...                  data_catalog.py:1048
+                    INFO     Running node: preprocess_companies_node: preprocess_companies() ->    node.py:531
+                    INFO     Saving data to preprocessed_companies (MemoryDataset)...     data_catalog.py:1008
+                    INFO     Completed node: preprocess_companies_node                           runner.py:245
+                    INFO     Completed 1 out of 2 tasks                                          runner.py:246
+                    INFO     Loading data from shuttles (ExcelDataset)...                 data_catalog.py:1048
+[03/19/26 03:29:58] INFO     Running node: preprocess_shuttles_node: preprocess_shuttles() ->      node.py:531
+                    INFO     Saving data to preprocessed_shuttles (MemoryDataset)...      data_catalog.py:1008
+                    INFO     Completed node: preprocess_shuttles_node                            runner.py:245
+                    INFO     Completed 2 out of 2 tasks                                          runner.py:246
+                    INFO     Pipeline execution completed successfully in 2.5 sec.               runner.py:119
+
+
+
+Note :
+À cette étape, le pipeline s’exécute correctement : Kedro transmet les datasets d’entrée aux fonctions définies dans les nodes, 
+puis récupère les sorties produites.
+Comme les datasets de sortie (preprocessed_companies et preprocessed_shuttles) n’ont pas encore été déclarés dans le catalog.yml, 
+Kedro les gère temporairement en mémoire pendant l’exécution. 
+Les résultats existent donc bien pendant le run, 
+mais ils ne sont pas sauvegardés sur disque et sont perdus à la fin du pipeline.
+Cette étape permet surtout de valider la logique de transformation 
+avant de configurer explicitement le stockage des sorties dans le catalogue de données.
+
+perso note :
+Le pipeline s’exécute bien : Kedro lit les entrées, exécute les nodes et produit les sorties. 
+Mais comme les outputs ne sont pas encore déclarés dans le catalog, ils ne sont pas sauvegardés. 
+Ils sont gardés temporairement en mémoire puis perdus à la fin de l’exécution.
+
+
+
+######=====================================================#
+#######
+######  Partie3 ---Stockages des resultats de la pipeline
+######
+######
+
+
+ajouter ca a spaceflights\conf\base\catalog.yml
+preprocessed_companies:
+  type: pandas.ParquetDataset
+  filepath: data/02_intermediate/preprocessed_companies.pq
+
+preprocessed_shuttles:
+  type: pandas.ParquetDataset
+  filepath: data/02_intermediate/preprocessed_shuttles.pq 
+
+
+######=====================================================#
+#######
+######  Partie4 --- visualition pipeline kedro
+######
+######
+
+kedro viz

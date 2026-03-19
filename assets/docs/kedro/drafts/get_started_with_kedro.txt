@@ -1,0 +1,171 @@
+# Create a blank projet kedro
+kedro new
+
+## Entrer des infos sur le projet 
+[New Kedro Project]: spaceflights
+
+Tools
+1) Lint: Basic linting with Ruff
+2) Test: Basic testing with pytest
+3) Log: Additional, environment-specific logging options
+4) Docs: A Sphinx documentation setup
+5) Data Folder: A folder structure for data management
+6) PySpark: Configuration for working with PySpark
+
+Which tools would you like to include in your project? [1-6/1,3/all/none]:
+ [none]: none
+
+Would you like to include an example pipeline? [y/N]:
+ [no]: n
+
+## Se mettre dans le dossier du projet Creer et afficher les fichiers crree
+cd spaceflights
+ls 
+
+## Sortie
+    Répertoire : C:\Users\ymarega\OneDrive - NORDIKeau\Bureau\Personnel\Data & IA\Projets perso\energystock-ai\spaceflights
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        2026-03-19     00:39                conf
+d-----        2026-03-19     00:39                data
+d-----        2026-03-19     00:40                notebooks
+d-----        2026-03-19     00:39                src
+-a----        2026-03-19     00:39           1923 .gitignore
+-a----        2026-03-19     00:41            792 pyproject.toml
+-a----        2026-03-19     00:39           3081 README.md
+-a----        2026-03-19     00:39             52 requirements.txt
+
+
+
+# structure du projet 
+# structure du projet 
+tree /F /A ### pour tout le projet
+tree /F /A src ## pour src
+######
+#########
+Structure du dossier pour le volume Windows 
+Le numéro de série du volume est CE36-3077
+C:.
+|   .gitignore
+|   pyproject.toml
+|   README.md
+|   requirements.txt
+|   
++---conf
+|   |   README.md
+|   |
+|   +---base
+|   |       catalog.yml
+|   |       parameters.yml
+|   |
+|   \---local
+|           .gitkeep
+|           credentials.yml
+|
++---data
+|   +---01_raw
+|   |       .gitkeep
+|   |
+|   +---02_intermediate
+|   |       .gitkeep
+|   |
+|   +---03_primary
+|   |       .gitkeep
+|   |
+|   +---04_feature
+|   |       .gitkeep
+|   |
+|   +---05_model_input
+|   |       .gitkeep
+|   |
+|   +---06_models
+|   |       .gitkeep
+|   |
+|   +---07_model_output
+|   |       .gitkeep
+|   |
+|   \---08_reporting
+|           .gitkeep
+|
++---notebooks
+|       .gitkeep
+|       first-exploration.ipynb
+|
+\---src
+    \---spaceflights
+        |   pipeline_registry.py
+        |   settings.py
+        |   __init__.py
+        |   __main__.py
+        |
+        +---pipelines
+        |   |   __init__.py
+        |   |
+        |   \---__pycache__
+        |           __init__.cpython-312.pyc
+        |
+        \---__pycache__
+                pipeline_registry.cpython-312.pyc
+                settings.cpython-312.pyc
+                __init__.cpython-312.pyc
+
+
+######
+#####
+
+### Important : Rappell Aller a la racine du dossier qu'on vient de creer 
+ cd spaceflights
+
+
+ #######################----------
+    Utiliser Kedro avec Jupyter notebooks
+ ####--------------
+
+ ## pre requis 
+ %load_ext kedro.ipython (incompatible avec python superieur 3.13)
+
+ ### obtenir les 3 datas :
+ companies.csv
+ reviews.csv
+ shuttles.xlsx
+
+ ## tu peux les obtenir en creeant un autre projet kedro spaceflights
+kedro new --starter=spaceflights-pandas
+
+ca va creer un nouveua project kedro et donne un nom par example spaceflights-pandas et tu pouuras trouver les fichiers :
+spaceflight-pandas\data\01_raw\companies.csv
+spaceflight-pandas\data\01_raw\reviews.csv
+spaceflight-pandas\data\01_raw\shuttles.xlsx
+
+ET apres tu peux les transferer (copier) dans le projet blanc kedro tanto creer spaceflight dans data/01_raw
+
+## Tester les commandes 
+
+context
+catalog
+pipelines
+
+### Modifier le fichier
+energystock-ai\spaceflights\conf\base\catalog.yml  (Pour l'instant c'est vide)
+
+########
+######
+companies:
+  type: pandas.CSVDataset
+  filepath: data/01_raw/companies.csv
+
+reviews:
+  type: pandas.CSVDataset
+  filepath: data/01_raw/reviews.csv
+
+shuttles:
+  type: pandas.ExcelDataset
+  filepath: data/01_raw/shuttles.xlsx
+  load_args:
+    engine: openpyxl # Use modern Excel engine (the default since Kedro 0.18.0)
+
+
+#####
+####

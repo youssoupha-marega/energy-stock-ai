@@ -1,0 +1,29 @@
+# Here you can define all your datasets by using simple YAML syntax.
+#
+# Documentation for this file format can be found in "The Data Catalog"
+# Link: https://docs.kedro.org/en/stable/catalog-data/introduction/#data-catalog
+
+
+companies:
+  type: pandas.CSVDataset
+  filepath: data/01_raw/companies.csv
+
+reviews:
+  type: pandas.CSVDataset
+  filepath: data/01_raw/reviews.csv
+
+shuttles:
+  type: pandas.ExcelDataset
+  filepath: data/01_raw/shuttles.xlsx
+  load_args:
+    engine: openpyxl # Use modern Excel engine (the default since Kedro 0.18.0)
+
+
+preprocessed_companies:
+  type: pandas.ParquetDataset
+  filepath: data/02_intermediate/preprocessed_companies.pq
+
+preprocessed_shuttles:
+  type: pandas.ParquetDataset
+  filepath: data/02_intermediate/preprocessed_shuttles.pq 
+

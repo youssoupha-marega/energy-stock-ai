@@ -3,8 +3,8 @@
 > **Pipeline MLOps de bout en bout pour prévoir les rendements à 5 jours des actions du secteur énergétique nord-américain**  
 > Construit avec Kedro · MLflow · FastAPI · Evidently AI · Docker · GitHub Actions
 
-![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=flat&logo=python&logoColor=white)
-![Kedro](https://img.shields.io/badge/Kedro-0.19-FFC900?style=flat&logo=kedro&logoColor=black)
+![Python](https://img.shields.io/badge/Python-3.12.2-3776AB?style=flat&logo=python&logoColor=white)
+![Kedro](https://img.shields.io/badge/Kedro-1.2.0-FFC900?style=flat&logo=kedro&logoColor=black)
 ![MLflow](https://img.shields.io/badge/MLflow-Tracking-0194E2?style=flat&logo=mlflow&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-REST_API-009688?style=flat&logo=fastapi&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-Containerisé-2496ED?style=flat&logo=docker&logoColor=white)
@@ -290,4 +290,3 @@ Titres principaux : `NEE` `ETR` `DUK` `SO` `EXC` `AEP` `XEL` `ED` `PEG` `PPL` `F
 ## Licence
 
 MIT — voir [LICENSE](LICENSE)
-

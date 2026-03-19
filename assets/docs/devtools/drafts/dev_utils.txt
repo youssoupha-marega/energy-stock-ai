@@ -1,0 +1,43 @@
+
+# Utiliser powershell 
+
+# liste des versions python réellement installées.
+py -0p
+
+# Creer env virtuel
+python -m venv energy-stock-ai-3.12.2.venv
+
+## Creer un en virtuel avec une version specifique 
+py -3.12 -m venv energy-stock-ai-3.12.venv
+
+#activation env virtuell
+& "C:\Users\ymarega\OneDrive - NORDIKeau\Bureau\Personnel\Data & IA\Projets perso\energystock-ai\energy-stock-ai.venv\Scripts\Activate.ps1"
+
+
+# structure du projet 
+tree /F /A ### pour tout le projet
+tree /F /A src ## pour src
+
+# visualiser README.md en local
+grep README.md
+
+## version pyton
+python --version
+
+### les librairies dans l'env virtuell
+pip list
+
+## pour voir une librairie specifique est dans mon environnemnet
+pip show black (numpy)
+# ou
+pip list | Select-String black
+
+## list l'ensemble des fichieres d'un dossier
+ls
+
+## strucuture du projet 
+tree /F /A ### pour tout le projet
+tree /F /A src ## pour src
+
+## Aller a la racine d'un dossier
+cd mon_dossier
