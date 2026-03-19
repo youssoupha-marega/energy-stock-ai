@@ -290,3 +290,4 @@ Titres principaux : `NEE` `ETR` `DUK` `SO` `EXC` `AEP` `XEL` `ED` `PEG` `PPL` `F
 ## Licence
 
 MIT — voir [LICENSE](LICENSE)
+

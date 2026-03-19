@@ -8,3 +8,6 @@ activation env virtuell
 
 # structure du projet 
 tree /F /A src
+
+
+### Verification que je suis dans la branch feature/kedro-project-setup
