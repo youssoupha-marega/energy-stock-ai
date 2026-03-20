@@ -253,13 +253,13 @@ Ce projet est un **outil d'aide à la décision**, pas un robot de trading. Les 
 ## Feuille de route
 
 - [x] Structure du projet Kedro
-- [x] Feature engineering (lags, SMA/EMA/RSI, volume, calendrier)
-- [x] Suivi des expériences MLflow
-- [x] Endpoint de serving FastAPI
-- [x] Containerisation Docker
-- [x] CI/CD GitHub Actions
-- [x] Monitoring de dérive Evidently AI
-- [x] Dashboard Streamlit
+- [ ] Feature engineering (lags, SMA/EMA/RSI, volume, calendrier)
+- [ ] Suivi des expériences MLflow
+- [ ] Endpoint de serving FastAPI
+- [ ] Containerisation Docker
+- [ ] CI/CD GitHub Actions
+- [ ] Monitoring de dérive Evidently AI
+- [ ] Dashboard Streamlit
 - [ ] Support multi-tickers (DUK, SO, AEP)
 - [ ] Déploiement AWS (ECR + App Runner)
 - [ ] Infrastructure as Code Terraform
